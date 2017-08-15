@@ -1,0 +1,23 @@
+{
+    "map":{
+        "map_gaussDegree": 5,
+        "map_binaryThreshold": 180,
+        "map_borderGrayDegree": 0.6
+    },
+    "road":{
+        "road_gaussDegree": 5,
+        "road_binaryThreshold": 100
+    },
+    "river":{
+        "river_gaussDegree": 5,
+        "river_binaryThreshold": 180
+    },
+    "vegetation":{
+        "vegetation_gaussDegree": 5,
+        "vegetation_binaryThreshold": 150
+    },
+    "resident":{
+        "resident_gaussDegree": 5,
+        "resident_binaryThreshold": 180
+    }
+}
