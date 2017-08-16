@@ -284,67 +284,6 @@ def my_compositeLast(img_bottom,img_top):
     
     result_composite= Image.alpha_composite(image_bottom,image_top);
     return result_composite
- 
-    
-##主函数，处理入口  
-#if __name__=="__main__": 
-#    #底图图层 threshold 180
-#    map_origin=Image.open('./origin/map.png')
-#    map_gauss=my_gauss(map_origin,5)
-#    map_binary=my_binary(map_gauss,180)
-#    map_whiteBorder=my_whiteBorder(map_binary)
-#    map_grayBorder=my_grayBorder(map_binary)
-#    map_compositeBg=my_compositeBg(map_grayBorder,map_whiteBorder)
-#    map_texture=Image.open('./texture/map_texture.png')
-#    map_last=my_compositeBg(map_texture,map_compositeBg)
-#    map_last.save("./result/map.png",'png') 
-#    print("Map background layer was processed!")
-#    
-#    #道路图层 threshold 100
-#    road_origin=Image.open('./origin/road.png')
-#    road_texture=Image.open('./texture/road_texture.png')
-#    road_gauss=my_gauss(road_origin,5)
-#    road_binary=my_binary(road_gauss,100)
-#    road_object=my_objectTexture(road_binary,road_texture)
-#    road_object.save("./result/road.png",'png')
-#    print("Road layer was processed!")
-#    
-#    #河流图层 threshold 150
-#    river_origin=Image.open('./origin/river.png')
-#    river_origin=my_deleteRoad(river_origin,road_origin);
-#    river_texture=Image.open('./texture/river_texture.png')
-#    river_gauss=my_gauss(river_origin,5)
-#    river_binary=my_binary(river_gauss,150)
-#    river_object=my_objectTexture(river_binary,river_texture)
-#    river_object.save("./result/river.png",'png')
-#    print("River layer was processed!")
-#
-#    #植被图层 threshold 150
-#    vegetation_origin=Image.open('./origin/vegetation.png')
-#    vegetation_origin=my_deleteRoad(vegetation_origin,road_origin);
-#    vegetation_texture=Image.open('./texture/vegetation_texture.png')
-#    vegetation_gauss=my_gauss(vegetation_origin,5)
-#    vegetation_binary=my_binary(vegetation_gauss,150)
-#    vegetation_object=my_objectTexture(vegetation_binary,vegetation_texture)
-#    vegetation_object.save("./result/vegetation.png",'png') 
-#    print("Vegetation layer was processed!")
-#
-#    #居民地图层 threshold 180
-#    resident_origin=Image.open('./origin/resident.png')
-#    resident_origin=my_deleteRoad(resident_origin,road_origin);
-#    resident_texture=Image.open('./texture/resident_texture.png')
-#    resident_gauss=my_gauss(resident_origin,5)
-#    resident_binary=my_binary(resident_gauss,180)
-#    resident_object=my_objectTexture(resident_binary,resident_texture)
-#    resident_object.save("./result/resident.png",'png') 
-#    print("Resident layer was processed!")
-#    
-#    result=my_compositeLast(map_last,river_object)
-#    result=my_compositeLast(result,vegetation_object)
-#    result=my_compositeLast(result,resident_object)
-#    result=my_compositeLast(result,road_object)
-#    result.save("./result/result.png",'png')
-#    print("Check results!")
     
     
     

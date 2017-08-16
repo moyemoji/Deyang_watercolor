@@ -75,7 +75,7 @@ if __name__=="__main__":
     map_compositeBg=my_compositeBg(map_grayBorder,map_whiteBorder)
     map_texture=Image.open('./texture/map_texture.png')
     map_last=my_compositeBg(map_texture,map_compositeBg)
-#    map_last.save("./result/map.png",'png') 
+    map_last.save("./result/map.png",'png') 
     print("Map background layer was processed!")
     
     #道路图层
@@ -84,7 +84,7 @@ if __name__=="__main__":
     road_gauss=my_gauss(road_origin,road_gaussDegree)
     road_binary=my_binary(road_gauss,road_binaryThreshold)
     road_object=my_objectTexture(road_binary,road_texture)
-#    road_object.save("./result/road.png",'png')
+    road_object.save("./result/road.png",'png')
     print("Road layer was processed!")
     
     #河流图层
@@ -94,7 +94,7 @@ if __name__=="__main__":
     river_gauss=my_gauss(river_origin,river_gaussDegree)
     river_binary=my_binary(river_gauss,river_binaryThreshold)
     river_object=my_objectTexture(river_binary,river_texture)
-#    river_object.save("./result/river.png",'png') 
+    river_object.save("./result/river.png",'png') 
     print("River layer was processed!")
     
 
@@ -115,7 +115,7 @@ if __name__=="__main__":
     resident_gauss=my_gauss(resident_origin,resident_gaussDegree)
     resident_binary=my_binary(resident_gauss,resident_binaryThreshold)
     resident_object=my_objectTexture(resident_binary,resident_texture)
-#    resident_object.save("./result/resident.png",'png') 
+    resident_object.save("./result/resident.png",'png') 
     print("Resident layer was processed!")
     
     
