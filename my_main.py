@@ -125,3 +125,4 @@ if __name__=="__main__":
     result=my_compositeLast(result,resident_object)
     result=my_compositeLast(result,road_object)
     result.save("./result/result.png",'png')
+    print("Check results!")

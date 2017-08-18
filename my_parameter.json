@@ -18,6 +18,6 @@
     },
     "resident":{
         "resident_gaussDegree": 5,
-        "resident_binaryThreshold": 180
+        "resident_binaryThreshold": 150
     }
 }
