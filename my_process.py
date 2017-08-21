@@ -209,7 +209,7 @@ def my_objectTexture(img_binary,ob_texture):
 #第四步：背景层白底的灰色边缘
 #输入：二值化图，转成RGB模式，高斯模糊和alpha通道赋值
 #输出：白色区域透明，黑色区域依旧是黑色，但是黑色边缘像素透明度加大(alpha值变小了)的图
-def my_grayBorder(img_binary):
+def my_grayBorder(img_binary,k):
     image_binary=array(img_binary.convert("RGB"))
     
     image_zeros = zeros([4096,4096,3])
@@ -236,21 +236,15 @@ def my_grayBorder(img_binary):
     image_g.flags.writeable = True
     image_b.flags.writeable = True
     image_a.flags.writeable = True
-
-#    for i in range(0,len(image_r)):
-#        for j in range(0,len(image_r[i])):
-#            if(image_r[i][j]>220):
-#                image_a[i][j]=0
-#            elif(image_r[i][j]<220 and image_r[i][j]>50):
-#                image_a[i][j]=image_r[i][j]/2
     
     for i in range(0,len(image_r)):
         for j in range(0,len(image_r[i])):
             if(image_r[i][j]>50):
                 image_a[i][j]=255-image_r[i][j]
-                image_r[i][j] = image_r[i][j]*0.6+100
-                image_g[i][j] = image_g[i][j]*0.6+100
-                image_g[i][j] = image_b[i][j]*0.6+100
+                image_r[i][j] = image_r[i][j]*k+(1-k)*250
+                image_g[i][j] = image_g[i][j]*k+(1-k)*250
+                image_g[i][j] = image_b[i][j]*k+(1-k)*250
+# k越大，
 
 
     r = Image.fromarray(image_r)

@@ -71,7 +71,7 @@ if __name__=="__main__":
     map_gauss=my_gauss(map_origin,map_gaussDegree)
     map_binary=my_binary(map_gauss,map_binaryThreshold)
     map_whiteBorder=my_whiteBorder(map_binary)
-    map_grayBorder=my_grayBorder(map_binary)
+    map_grayBorder=my_grayBorder(map_binary,map_borderGrayDegree)
     map_compositeBg=my_compositeBg(map_grayBorder,map_whiteBorder)
     map_texture=Image.open('./texture/map_texture.png')
     map_last=my_compositeBg(map_texture,map_compositeBg)

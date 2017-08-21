@@ -2,7 +2,7 @@
     "map":{
         "map_gaussDegree": 5,
         "map_binaryThreshold": 180,
-        "map_borderGrayDegree": 0.6
+        "map_borderGrayDegree": 1
     },
     "road":{
         "road_gaussDegree": 5,
