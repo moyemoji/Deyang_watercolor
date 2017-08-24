@@ -137,8 +137,57 @@ def my_whiteBorder(img_binary):
     return image_whiteBorder
 
 
+#第三部（2）：地物层的灰色边缘
+#输入：二值化图
+#输出：地物部分为灰色的图片，等待叠加到地物纹理之上
+def my_objectGrayBorder(img_binary):
+    image_binary=img_binary
+    image_gauss=my_gauss(image_binary,5).convert("RGBA")
+    
+    bands_binary=image_binary.convert("RGBA").split()
+    image_binary_r=bands_binary[0]
+    image_binary_g=bands_binary[1]
+    image_binary_b=bands_binary[2]
+    image_binary_a=bands_binary[3]
+    
+    bands_gauss=image_gauss.split()
+    image_gauss_r=bands_gauss[0]
+    image_gauss_g=bands_gauss[1]
+    image_gauss_b=bands_gauss[2]
+    image_gauss_a=bands_gauss[3]
 
-#第三步（2）：地物层纹理
+    image_binary_r = asarray(image_binary_r)
+    image_binary_g = asarray(image_binary_g)
+    image_binary_b = asarray(image_binary_b)
+    image_binary_a = asarray(image_binary_a)
+    
+    image_gauss_r = asarray(image_gauss_r)
+    image_gauss_g = asarray(image_gauss_g)
+    image_gauss_b = asarray(image_gauss_b)
+    image_gauss_a = asarray(image_gauss_a)
+    
+    image_gauss_r.flags.writeable = True
+    image_gauss_g.flags.writeable = True
+    image_gauss_b.flags.writeable = True
+    image_gauss_a.flags.writeable = True
+    
+    for i in range(0,len(image_binary_r)):
+        for j in range(0,len(image_binary_r[i])):
+            if(image_binary_r[i][j]==0):
+                image_gauss_a[i][j]=0
+            else:
+                image_gauss_a[i][j]=256-image_gauss_r[i][j]
+                
+    r = Image.fromarray(image_gauss_r)
+    g = Image.fromarray(image_gauss_g)
+    b = Image.fromarray(image_gauss_b)
+    a = Image.fromarray(image_gauss_a)
+    image_grayBorder = Image.merge("RGBA", (r,g,b,a))
+    
+    return image_grayBorder
+    
+
+#第三步（3）：地物层纹理
 #输入：二值化图，转化成RGBA，convert("RGBA")，以图层融合的形式或者赋值的形式修改像素
 #输出：地物带纹理，非地物部分透明，等待大融合
 def my_objectTexture(img_binary,ob_texture):
@@ -278,6 +327,59 @@ def my_compositeLast(img_bottom,img_top):
     
     result_composite= Image.alpha_composite(image_bottom,image_top);
     return result_composite
+
+
+
+#top是目标层，作为蒙版处理bottom图层
+def my_colorBurn(img_bottom,img_top):
+    image_bottom=img_bottom.convert("RGBA")
+    image_top=img_top.convert("RGBA")
     
+    bands_bottom=image_bottom.split()
+    image_bottom_r=bands_bottom[0]
+    image_bottom_g=bands_bottom[1]
+    image_bottom_b=bands_bottom[2]
+    image_bottom_a=bands_bottom[3]
+    
+    bands_top=image_top.split()
+    image_top_r=bands_top[0]
+    image_top_g=bands_top[1]
+    image_top_b=bands_top[2]
+    image_top_a=bands_top[3]
+
+    image_bottom_r = asarray(image_bottom_r)
+    image_bottom_g = asarray(image_bottom_g)
+    image_bottom_b = asarray(image_bottom_b)
+    image_bottom_a = asarray(image_bottom_a)
+    
+    image_top_r = asarray(image_top_r)
+    image_top_g = asarray(image_top_g)
+    image_top_b = asarray(image_top_b)
+    image_top_a = asarray(image_top_a)
+    
+    image_bottom_r.flags.writeable = True
+    image_bottom_g.flags.writeable = True
+    image_bottom_b.flags.writeable = True
+    image_bottom_a.flags.writeable = True
+    
+    #1-(1-B)/A
+    for i in range(0,len(image_bottom_r)):
+        for j in range(0,len(image_bottom_r[i])):
+            if(image_top_a[i][j]!=0):
+                if(image_top_r[i][j]==0 or image_top_g[i][j]==0 or image_top_b[i][j]==0):
+                    image_top_r[i][j]+=1
+                    image_top_g[i][j]+=1
+                    image_top_b[i][j]+=1
+                image_bottom_r[i][j]=255-(255-image_bottom_r[i][j])/image_top_r[i][j]*255
+                image_bottom_g[i][j]=255-(255-image_bottom_g[i][j])/image_top_g[i][j]*255
+                image_bottom_b[i][j]=255-(255-image_bottom_b[i][j])/image_top_b[i][j]*255
+            
+    r = Image.fromarray(image_bottom_r)
+    g = Image.fromarray(image_bottom_g)
+    b = Image.fromarray(image_bottom_b)
+    a = Image.fromarray(image_bottom_a)
+    image_colorBurn = Image.merge("RGBA", (r,g,b,a))
+
+    return image_colorBurn
     
     

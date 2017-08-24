@@ -91,9 +91,14 @@ if __name__=="__main__":
     river_origin=Image.open('./origin/river.png')
     river_origin=my_deleteRoad(river_origin,road_origin)
     river_texture=Image.open('./texture/river_texture.png')
+    
     river_gauss=my_gauss(river_origin,river_gaussDegree)
     river_binary=my_binary(river_gauss,river_binaryThreshold)
+    river_grayBorder=my_objectGrayBorder(river_binary)
+#    river_grayBorder.save("./result/river_border.png",'png') 
     river_object=my_objectTexture(river_binary,river_texture)
+    river_object=my_compositeLast(river_object,river_grayBorder)
+#    river_object=my_colorBurn(river_object,river_grayBorder);
 #    river_object.save("./result/river.png",'png') 
     print("River layer was processed!")
     
